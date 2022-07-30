@@ -19,11 +19,24 @@ export class BuildingsService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} building`;
+    return this.prisma.building.findFirst({
+      where: {
+        id,
+      },
+    });
   }
 
   update(id: number, updateBuildingDto: UpdateBuildingDto) {
-    return `This action updates a #${id} building`;
+    const building = this.prisma.building.update({
+      where: {
+        id,
+      },
+      data: {
+        ...updateBuildingDto,
+      },
+    });
+
+    return building;
   }
 
   remove(id: number) {
