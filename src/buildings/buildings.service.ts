@@ -14,20 +14,20 @@ export class BuildingsService {
     return building;
   }
 
-  findAll() {
-    return this.prisma.building.findMany({});
+  async findAll() {
+    return await this.prisma.building.findMany({});
   }
 
-  findOne(id: number) {
-    return this.prisma.building.findFirst({
+  async findOne(id: number) {
+    return await this.prisma.building.findFirst({
       where: {
         id,
       },
     });
   }
 
-  update(id: number, updateBuildingDto: UpdateBuildingDto) {
-    const building = this.prisma.building.update({
+  async update(id: number, updateBuildingDto: UpdateBuildingDto) {
+    const building = await this.prisma.building.updateMany({
       where: {
         id,
       },
@@ -36,10 +36,24 @@ export class BuildingsService {
       },
     });
 
+    console.log('hmm');
+
+    console.log(building);
+
     return building;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} building`;
+  async remove(id: number) {
+    const result = await this.prisma.building.delete({
+      where: {
+        id,
+      },
+    });
+
+    if (result) {
+      return {
+        message: 'Building with id ' + id + ' deleted',
+      };
+    }
   }
 }
