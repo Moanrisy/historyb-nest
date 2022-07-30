@@ -4,12 +4,16 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  // create two dummy articles
+  // empty buildingt able
+  await prisma.building.deleteMany();
+
+  // create two dummy building
   const building1 = await prisma.building.create({
     data: {
       title: 'Candi borobudur',
       description:
         "We are excited to share that today's Prisma ORM release adds stable support for MongoDB!",
+      image: 'https://picsum.photos/100',
     },
   });
 
@@ -18,6 +22,7 @@ async function main() {
       title: 'Candi prambanan',
       description:
         "We are excited to share that today's Prisma ORM release adds stable support for MongoDB!",
+      image: 'https://picsum.photos/200',
     },
   });
 
